@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Profesional</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-gradient: linear-gradient(135deg, #38bdf8, #818cf8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .portfolio-container {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            position: relative;
+        }
+
+        /* Kiri: Konten Utama */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .badge {
+            background: var(--accent-gradient);
+            color: #0f172a;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            width: max-content;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .summary {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        /* Kanan: Foto dengan Efek 3D */
+        .profile-side {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .photo-wrapper {
+            position: relative;
+            width: 260px;
+            height: 260px;
+            perspective: 1000px; /* Efek kedalaman 3D */
+        }
+
+        .photo-card {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            background: var(--card-bg);
+            border: 2px solid rgba(56, 189, 248, 0.5);
+            overflow: hidden;
+            box-shadow: 
+                -10px 10px 0px rgba(56, 189, 248, 0.2),
+                -20px 20px 0px rgba(129, 140, 248, 0.1),
+                0 20px 30px rgba(0,0,0,0.5);
+            transform: rotateY(-15deg) rotateX(10deg); /* Sudut kemiringan 3D */
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .photo-card:hover {
+            transform: rotateY(-5deg) rotateX(5deg) translateY(-5px);
+            box-shadow: 
+                -5px 5px 0px rgba(56, 189, 248, 0.3),
+                -10px 10px 0px rgba(129, 140, 248, 0.2),
+                0 30px 40px rgba(0,0,0,0.6);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Bagian CTA Buttons */
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: #0f172a;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Saluran Kontak */
+        .contact-channels {
+            grid-column: 1 / -1;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-channels h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .contact-list {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .contact-item-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .contact-item-link:hover {
+            color: var(--accent);
+        }
+
+        /* Khusus Tombol WhatsApp Teks Hitam, Background Hijau */
+        .btn-whatsapp {
+            color: #000000 !important;
+            background-color: #25D366;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1ebd54;
+        }
+
+        /* Bagian Bawah: Skill */
+        .skills-section {
+            grid-column: 1 / -1;
+            margin-top: 1rem;
+        }
+
+        .skills-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .grid-skills {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive untuk Mobile */
+        @media (max-width: 768px) {
+            .portfolio-container {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+                gap: 2rem;
+            }
+            .profile-side {
+                order: -1; /* Foto naik ke atas pada layar HP */
+                margin-bottom: 1rem;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            .contact-list {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+/* ==========================================================
+   PENGATURAN KHUSUS LAPTOP / PC (Layar 769px ke atas)
+   ========================================================== */
+@media (min-width: 769px) {
+    /* 1. Paksa Grid utama sejajar di garis atas */
+    .portfolio-container {
+        display: grid !important;
+        grid-template-columns: 2fr 1fr !important;
+        align-items: start !important; 
+    }
+
+    /* 2. Tarik area kolom kanan ke atas dan arahkan isinya ke KANAN */
+    .profile-side {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-end !important; /* Dorong isi ke ujung kanan */
+        align-self: start !important;     /* Tarik pembungkus ke paling atas */
+        width: 100% !important;
+        margin-top: 0 !important;
+    }
+
+    /* 3. Geser pembungkus foto terluar ke kanan murni menggunakan margin otomatis */
+    .photo-wrapper {
+        display: block !important;
+        margin-left: auto !important; 
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    /* 4. Amankan kartu efek 3D agar ikut menempel ke kanan */
+    .photo-card {
+        margin-left: auto !important;  /* Memaksa elemen 3D mentok kanan */
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    /* 5. Pastikan gambarnya juga rata kanan */
+    .photo-card img {
+        display: block !important;
+        margin-left: auto !important;
+        margin-right: 0 !important;
+    }
+}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portfolio-container">
+        
+        <!-- Bagian Kiri: Konten Teks -->
+        <div class="main-content">
+            <span class="badge">My Profile</span>
+            <h1>Halo, I'm Arif Syaputra</h1>
+            <h2>Professional freelance writer</h2>
+            
+            <p class="summary">
+                I am a passionate Content Writer and Article Writer with a strong interest in creating engaging, informative, and SEO-friendly content. I enjoy turning ideas into well-structured articles that provide value to readers while supporting business goals.
+            </p>
+
+            <div class="cta-group">
+                <!-- Tombol Hubungi Otomatis Membuka Email -->
+                <a href="mailto:arifsyapoetra@.com?subject=Penawaran%20Kerja" class="btn btn-primary">Contact me</a>
+                
+                <!-- Tombol Unduh File Biodata / CV (Pastikan nama file PDF Anda sesuai) -->
+                <a href="assets/cv-arif.pdf" download="bio-arif-syaputra.pdf" class="btn btn-secondary">Download Profile (PDF)</a>
+            </div>
+        </divX
+
+        !-- Bagian Kanan Atas: Foto dengan Desain Kedalaman 3D -->
+        <div class="profile-side">
+            <div class="photo-wrapper">
+                <div class="photo-card">
+                    <img src="https://imagizer.imageshack.com/img922/4212/BlbEA3.jpg" alt="Foto Profil">
+                </div>
+            </div>
+        </div>
+
+        <!-- Bagian Informasi Kontak Tambahan -->
+        <div class="contact-channels">
+            <h3>Contact Channels</h3>
+            <div class="contact-list">
+                
+                <!-- WhatsApp Button (Teks Hitam, Background Hijau) -->
+                <a href="https://wa.me/6281367909874?text=Halo%20saya%20tertarik%20dengan%20portofolio%20Anda" target="_blank" class="btn-whatsapp">
+                    💬 WhatsApp: +62 813-6790-9874
+                </a>
+
+                <!-- LinkedIn Link -->
+                <a href="https://www.linkedin.com/in/arif-syaputra-39002141a/" target="_blank" class="contact-item-link">
+                    💼 LinkedIn: https://www.linkedin.com/in/arif-syaputra-39002141a/
+                </a>
+
+                <!-- Email Teks Manual -->
+                <span style="color: var(--text-muted); font-size: 0.95rem;">
+                    ✉️ Email: arifsyapoetra@gmail.com
+                </span>
+                
+            </div>
+        </div>
+
+        <!-- Bagian Bawah: Keahlian Inti -->
+        <div class="skills-section">
+            <h3>Core Competencies</h3>
+            <div class="grid-skills">
+                <div class="skill-item">Blog Writing</div>
+                <div class="skill-item">Article Writing</div>
+                <div class="skill-item">SEO Content Writing</div>
+                <div class="skill-item">Website Content</div>
+                <div class="skill-item">Copywriting</div>
+                <div class="skill-item">Content Editing </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
